@@ -27,6 +27,9 @@ class _HomePageState extends State<HomePage> {
       },
     );
 
+    print('Response status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
     if (response.statusCode == 200) {
       final List<dynamic> responseData = jsonDecode(response.body);
       setState(() {
@@ -36,6 +39,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         error = 'Failed to fetch student data. Error: ${response.statusCode}';
       });
+      print('Error: $error');
     }
   }
 
@@ -152,7 +156,17 @@ class _HomePageState extends State<HomePage> {
           final student = students[index];
           return Card(
             child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(student.profilePicture),
+              ),
               title: Text(student.studentName),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Age: ${student.age}'),
+                  Text('GPA: ${student.gpa.toStringAsFixed(2)}'),
+                ],
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -303,13 +317,26 @@ class _HomePageState extends State<HomePage> {
 class Student {
   final int id;
   String studentName;
+  String profilePicture;
+  int age;
+  double gpa;
 
-  Student({required this.id, required this.studentName});
+  Student({
+    required this.id,
+    required this.studentName,
+    required this.profilePicture,
+    required this.age,
+    required this.gpa,
+  });
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
       id: json['id'],
-      studentName: json['student_name'],
+      studentName: json['name'],
+      profilePicture:
+          'http://localhost:8000/storage/${json['profile_picture']}',
+      age: json['age'],
+      gpa: json['gpa'].toDouble(),
     );
   }
 }

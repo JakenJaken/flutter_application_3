@@ -108,7 +108,11 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 18.0),
                 ),
               ),
-              Text('New User? Create Account')
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                  child: const Text('New User? Click Here')),
             ],
           ),
         ),
