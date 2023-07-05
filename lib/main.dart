@@ -4,6 +4,7 @@ import 'landing_page.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatefulWidget {
   final String token;
@@ -144,6 +145,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Widget _buildProfilePicture(Student student) {
+    return CachedNetworkImage(
+      imageUrl: student.profilePicture,
+      placeholder: (context, url) => CircularProgressIndicator(),
+      errorWidget: (context, url, error) {
+        print('Failed to load profile picture for student ${student.id}');
+        print('Error: $error');
+        return Icon(Icons.error);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,9 +169,7 @@ class _HomePageState extends State<HomePage> {
           final student = students[index];
           return Card(
             child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(student.profilePicture),
-              ),
+              leading: _buildProfilePicture(student),
               title: Text(student.studentName),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

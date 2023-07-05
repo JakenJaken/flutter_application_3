@@ -8,6 +8,9 @@
       <FullPath>D:\flutter_application_3\build\windows\flutter\x64\Debug\flutter_assemble</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>D:\flutter_application_3\build\windows\plugins\file_selector_windows\Debug\file_selector_windows_plugin.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>D:\flutter_application_3\build\windows\runner\Debug\flutter_application_3.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

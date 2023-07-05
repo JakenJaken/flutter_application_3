@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.6.3+07e294721 for .NET Framework
-      Build started 7/1/2023 6:33:31 PM.
+      Build started 7/5/2023 11:40:33 AM.
       
       Project "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\3.26.0-msvc3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -51,7 +51,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:02.41
+      Time Elapsed 00:00:01.48
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -70,8 +70,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-bsxjv1"
-      binary: "D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-bsxjv1"
+      source: "D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-3dl8uh"
+      binary: "D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-3dl8uh"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -80,37 +80,37 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-bsxjv1
+        Change Dir: D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-3dl8uh
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_b0ed4.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
-        Build started 7/1/2023 6:33:34 PM.
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_c4f83.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/5/2023 11:40:35 AM.
         
-        Project "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-bsxjv1\\cmTC_b0ed4.vcxproj" on node 1 (default targets).
+        Project "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-3dl8uh\\cmTC_c4f83.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_b0ed4.dir\\Debug\\".
-          Creating directory "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-bsxjv1\\Debug\\".
-          Creating directory "cmTC_b0ed4.dir\\Debug\\cmTC_b0ed4.tlog\\".
+          Creating directory "cmTC_c4f83.dir\\Debug\\".
+          Creating directory "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-3dl8uh\\Debug\\".
+          Creating directory "cmTC_c4f83.dir\\Debug\\cmTC_c4f83.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_b0ed4.dir\\Debug\\cmTC_b0ed4.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Creating "cmTC_c4f83.dir\\Debug\\cmTC_c4f83.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b0ed4.dir\\Debug\\\\" /Fd"cmTC_b0ed4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_c4f83.dir\\Debug\\\\" /Fd"cmTC_c4f83.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32535 for x64
           CMakeCXXCompilerABI.cpp
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b0ed4.dir\\Debug\\\\" /Fd"cmTC_b0ed4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_c4f83.dir\\Debug\\\\" /Fd"cmTC_c4f83.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-bsxjv1\\Debug\\cmTC_b0ed4.exe" /INCREMENTAL /ILK:"cmTC_b0ed4.dir\\Debug\\cmTC_b0ed4.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-bsxjv1/Debug/cmTC_b0ed4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-bsxjv1/Debug/cmTC_b0ed4.lib" /MACHINE:X64  /machine:x64 cmTC_b0ed4.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_b0ed4.vcxproj -> D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-bsxjv1\\Debug\\cmTC_b0ed4.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-3dl8uh\\Debug\\cmTC_c4f83.exe" /INCREMENTAL /ILK:"cmTC_c4f83.dir\\Debug\\cmTC_c4f83.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-3dl8uh/Debug/cmTC_c4f83.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/flutter_application_3/build/windows/CMakeFiles/CMakeScratch/TryCompile-3dl8uh/Debug/cmTC_c4f83.lib" /MACHINE:X64  /machine:x64 cmTC_c4f83.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_c4f83.vcxproj -> D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-3dl8uh\\Debug\\cmTC_c4f83.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_b0ed4.dir\\Debug\\cmTC_b0ed4.tlog\\unsuccessfulbuild".
-          Touching "cmTC_b0ed4.dir\\Debug\\cmTC_b0ed4.tlog\\cmTC_b0ed4.lastbuildstate".
-        Done Building Project "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-bsxjv1\\cmTC_b0ed4.vcxproj" (default targets).
+          Deleting file "cmTC_c4f83.dir\\Debug\\cmTC_c4f83.tlog\\unsuccessfulbuild".
+          Touching "cmTC_c4f83.dir\\Debug\\cmTC_c4f83.tlog\\cmTC_c4f83.lastbuildstate".
+        Done Building Project "D:\\flutter_application_3\\build\\windows\\CMakeFiles\\CMakeScratch\\TryCompile-3dl8uh\\cmTC_c4f83.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.89
+        Time Elapsed 00:00:01.06
         
       exitCode: 0
 ...
