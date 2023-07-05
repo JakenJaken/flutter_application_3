@@ -26,28 +26,45 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _register() async {
-    final response = await http.post(
-      Uri.parse('http://localhost:8000/api/register'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'first_name': _firstnameController.text,
-        'last_name': _lastnameController.text,
-        'birth_date': _dateinput != null ? _dateinput.toString() : '',
-        'phone_number': _phonenumberController.text,
-        'email': _emailController.text,
-        'password': _passwordController.text,
-        'role': 1,
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8000/api/register'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'first_name': _firstnameController.text,
+          'last_name': _lastnameController.text,
+          'tanggal_lahir': _dateinput.text,
+          'no_telp': _phonenumberController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+          'role': 1,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      Navigator.pushReplacementNamed(context, '/login');
-    } else {
+      if (response.statusCode == 200) {
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        final errorData = response.body;
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Registration Failed'),
+            content: Text('Failed to register user. Error: $errorData'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (error) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration Failed'),
-          content: Text('Failed to register user.'),
+          title: Text('Error'),
+          content: Text('An error occurred: $error'),
           actions: [
             TextButton(
               child: Text('OK'),
@@ -127,6 +144,21 @@ class _RegisterPageState extends State<RegisterPage> {
                   } else {
                     print('Date is not selected');
                   }
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _phonenumberController,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your phone number';
+                  }
+                  return null;
                 },
               ),
               SizedBox(height: 16.0),
