@@ -1,0 +1,23 @@
+name: flutter_application_3
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+dependencies:
+  dart_jsonwebtoken: ^2.8.2
+  flutter:
+    sdk: flutter
+  http: any
+  intl: ^0.18.1
+  shared_preferences: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
