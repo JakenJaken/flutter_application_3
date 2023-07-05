@@ -1,3 +1,3 @@
-# flutter_application_3
+# Flutter Tiket
 
-A new Flutter project.
+Untuk Frontendnya, saat ini fokus belajar semua materi Flutter dengan contoh kasus manajemen Murid dulu.
