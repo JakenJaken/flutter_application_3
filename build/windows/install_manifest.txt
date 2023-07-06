@@ -6,5 +6,6 @@ D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/AssetMan
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/NOTICES
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag

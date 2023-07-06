@@ -80,7 +80,17 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Register',
+          style: TextStyle(
+            color: Colors.black, // Customize the text color
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black, // Change the color of the arrow to black
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -94,8 +104,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _firstnameController,
                 decoration: InputDecoration(
                   labelText: 'First Name',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -109,8 +128,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _lastnameController,
                 decoration: InputDecoration(
                   labelText: 'Last Name',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -124,8 +152,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _dateinput,
                 decoration: InputDecoration(
                   labelText: 'Date of Birth',
-                  prefixIcon: Icon(Icons.calendar_today),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.calendar_today,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
                 readOnly: true,
                 onTap: () async {
@@ -145,14 +179,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     print('Date is not selected');
                   }
                 },
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
+                ),
               ),
               SizedBox(height: 16.0),
               TextFormField(
                 controller: _phonenumberController,
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.phone,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -166,8 +212,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -181,10 +236,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
                 obscureText: true,
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter your password';
@@ -199,7 +263,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     _register();
                   }
                 },
-                child: Text('Register'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  primary: Colors.blue, // Customize the button color
+                ),
+                child: Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Customize the text color
+                  ),
+                ),
               ),
             ],
           ),

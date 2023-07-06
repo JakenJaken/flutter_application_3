@@ -4,25 +4,84 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome'),
-      ),
-      body: Center(
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              child: Text('Login'),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 32.0),
+                  Text(
+                    'Welcome to Ticketify',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16.0),
+                  Text(
+                    'Find and book tickets for your favorite events!',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.grey[600],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/register');
-              },
-              child: Text('Register'),
+            SizedBox(height: 32.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 48.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  primary: Colors.blue, // Customize the button color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Customize the text color
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 48.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  primary: Colors.orange, // Customize the button color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Customize the text color
+                  ),
+                ),
+              ),
             ),
           ],
         ),

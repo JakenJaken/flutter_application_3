@@ -54,7 +54,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black, // Set the arrow color to black
+        ),
+        title: Text(
+          'Login',
+          style: TextStyle(
+            color: Colors.black, // Customize the text color
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -67,8 +77,17 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -82,10 +101,19 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.grey[600], // Customize the prefix icon color
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
                 obscureText: true,
+                style: TextStyle(
+                  color: Colors.black, // Customize the text color
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter your password';
@@ -102,17 +130,33 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16.0),
+                  primary: Colors.blue, // Customize the button color
                 ),
                 child: Text(
                   'Login',
-                  style: TextStyle(fontSize: 18.0),
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Customize the text color
+                  ),
                 ),
               ),
+              SizedBox(height: 8.0),
               TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text('New User? Click Here')),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0.0),
+                ),
+                child: Text(
+                  'New User? Click Here',
+                  style: TextStyle(
+                    color: Colors.blue, // Customize the text color
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

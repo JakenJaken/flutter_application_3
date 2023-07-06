@@ -72,7 +72,19 @@ class _HomePageState extends State<HomePage> {
       if (response.statusCode == 201) {
         // Student added successfully
         fetchData(); // Refresh the student list
-        setState(() {});
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Success'),
+            content: Text('Student added successfully.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
       } else {
         print('Failed to add student. Error: ${response.statusCode}');
       }
@@ -83,28 +95,50 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _showAddStudentDialog(BuildContext context) async {
     String name = '';
-    int age = 0;
+    int? age = 0;
     File? profilePicture;
 
     await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          backgroundColor: Colors.white,
           title: Text('Add Student'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 onChanged: (value) => name = value,
               ),
+              SizedBox(height: 16.0),
               TextField(
-                decoration: InputDecoration(labelText: 'Age'),
+                decoration: InputDecoration(
+                  labelText: 'Age',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) => age = int.tryParse(value) ?? 0,
               ),
-              ElevatedButton(
-                onPressed: () async {
+              SizedBox(height: 16.0),
+              InkWell(
+                onTap: () async {
                   final pickedImage = await ImagePicker().pickImage(
                     source: ImageSource.gallery,
                   );
@@ -112,21 +146,247 @@ class _HomePageState extends State<HomePage> {
                     profilePicture = File(pickedImage.path);
                   }
                 },
-                child: Text('Upload Profile Picture'),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[300]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.add_a_photo,
+                        color: Colors.grey[500],
+                        size: 36.0,
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        'Upload Profile Picture',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
-                _addStudent(name, age, profilePicture?.path ?? '');
+                _addStudent(name, age ?? 0, profilePicture?.path ?? '');
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _deleteStudent(int studentId) async {
+    try {
+      final url = Uri.parse('http://localhost:8000/api/students/$studentId');
+      final response = await http.delete(
+        url,
+        headers: {'Authorization': 'Bearer ${widget.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        // Student deleted successfully
+        fetchData(); // Refresh the student list
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Success'),
+            content: Text('Student deleted successfully.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      } else {
+        print('Failed to delete student. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred while deleting student: $e');
+    }
+  }
+
+  Future<void> _updateStudent(
+      int studentId, String name, int age, String profilePicturePath) async {
+    try {
+      final url = Uri.parse('http://localhost:8000/api/students/$studentId');
+      final request = http.MultipartRequest('PUT', url);
+      request.headers['Authorization'] = 'Bearer ${widget.token}';
+      request.fields['student_name'] = name;
+      request.fields['student_age'] = age.toString();
+      if (profilePicturePath.isNotEmpty) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'profile_picture',
+          profilePicturePath,
+        ));
+      }
+
+      final response = await http.Response.fromStream(await request.send());
+
+      if (response.statusCode == 200) {
+        // Student updated successfully
+        fetchData(); // Refresh the student list
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Success'),
+            content: Text('Student updated successfully.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      } else {
+        print('Failed to update student. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred while updating student: $e');
+    }
+  }
+
+  Future<void> _showEditStudentDialog(
+      BuildContext context, dynamic student) async {
+    String name = student['student_name'];
+    int? age = student['student_age'];
+    File? profilePicture;
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          backgroundColor: Colors.white,
+          title: Text('Edit Student'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                onChanged: (value) => name = value,
+                controller: TextEditingController(text: name),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Age',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (value) => age = int.tryParse(value) ?? 0,
+                controller: TextEditingController(text: age?.toString()),
+              ),
+              SizedBox(height: 16.0),
+              InkWell(
+                onTap: () async {
+                  final pickedImage = await ImagePicker().pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (pickedImage != null) {
+                    profilePicture = File(pickedImage.path);
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[300]!),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.add_a_photo,
+                        color: Colors.grey[500],
+                        size: 36.0,
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        'Upload Profile Picture',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                _updateStudent(
+                  student['id'],
+                  name,
+                  age ?? 0,
+                  profilePicture?.path ?? '',
+                );
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         );
@@ -137,26 +397,99 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Student List'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56.0),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'Students',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black, // Change the color of the arrow to black
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: students.length,
         itemBuilder: (context, index) {
           final student = students[index];
           String imageUrl = getProfilePictureUrl(student);
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(imageUrl),
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
             ),
-            title: Text(student['student_name']),
-            subtitle: Text('Age: ${student['student_age']}'),
+            elevation: 2,
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              leading: Container(
+                width: 60.0,
+                height: 60.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                  image: DecorationImage(
+                    image: NetworkImage(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              title: Text(
+                student['student_name'],
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                'Age: ${student['student_age']}',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.grey[600],
+                    ),
+                    onPressed: () {
+                      _showEditStudentDialog(context, student);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.grey[600],
+                    ),
+                    onPressed: () {
+                      _deleteStudent(student['id']);
+                    },
+                  ),
+                ],
+              ),
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddStudentDialog(context),
-        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
