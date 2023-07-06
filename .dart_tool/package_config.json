@@ -80,6 +80,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dio",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "ed25519_edwards",
       "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/ed25519_edwards-0.3.1",
       "packageUri": "lib/",
@@ -494,7 +500,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-05T04:40:22.073798Z",
+  "generated": "2023-07-05T07:54:32.292826Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
