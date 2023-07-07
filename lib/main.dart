@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 
       final response = await http.Response.fromStream(await request.send());
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         // Student added successfully
         fetchData(); // Refresh the student list
         showDialog(
@@ -80,13 +80,17 @@ class _HomePageState extends State<HomePage> {
             actions: [
               TextButton(
                 child: Text('OK'),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  fetchData(); // Refresh the student list
+                },
               ),
             ],
           ),
         );
       } else {
-        print('Failed to add student. Error: ${response.statusCode}');
+        print(
+            'Failed to add student. Error: ${response.statusCode}\n${response.body}');
       }
     } catch (e) {
       print('Exception occurred while adding student: $e');
@@ -97,107 +101,158 @@ class _HomePageState extends State<HomePage> {
     String name = '';
     int? age = 0;
     File? profilePicture;
+    bool showUploadButton = true;
 
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          backgroundColor: Colors.white,
-          title: Text('Add Student'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onChanged: (value) => name = value,
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
               ),
-              SizedBox(height: 16.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Age',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) => age = int.tryParse(value) ?? 0,
-              ),
-              SizedBox(height: 16.0),
-              InkWell(
-                onTap: () async {
-                  final pickedImage = await ImagePicker().pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (pickedImage != null) {
-                    profilePicture = File(pickedImage.path);
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.add_a_photo,
-                        color: Colors.grey[500],
-                        size: 36.0,
+              backgroundColor: Colors.white,
+              title: Text('Add Student'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        'Upload Profile Picture',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (value) => name = value,
+                  ),
+                  SizedBox(height: 16.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Age',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => age = int.tryParse(value) ?? 0,
+                  ),
+                  SizedBox(height: 16.0),
+                  if (profilePicture != null)
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.image,
+                                color: Colors.grey[500],
+                                size: 36.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                profilePicture?.path ?? '',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                profilePicture = null;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (showUploadButton)
+                    InkWell(
+                      onTap: () async {
+                        final pickedImage = await ImagePicker().pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedImage != null) {
+                          setState(() {
+                            profilePicture = File(pickedImage.path);
+                            showUploadButton = false;
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.add_a_photo,
+                              color: Colors.grey[500],
+                              size: 36.0,
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Upload Profile Picture',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: TextStyle(
-                  color: Colors.grey[600],
+                TextButton(
+                  onPressed: () {
+                    _addStudent(name, age ?? 0, profilePicture?.path ?? '');
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                _addStudent(name, age ?? 0, profilePicture?.path ?? '');
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'OK',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         );
       },
     );
@@ -239,18 +294,15 @@ class _HomePageState extends State<HomePage> {
       int studentId, String name, int age, String profilePicturePath) async {
     try {
       final url = Uri.parse('http://localhost:8000/api/students/$studentId');
-      final request = http.MultipartRequest('PUT', url);
-      request.headers['Authorization'] = 'Bearer ${widget.token}';
-      request.fields['student_name'] = name;
-      request.fields['student_age'] = age.toString();
-      if (profilePicturePath.isNotEmpty) {
-        request.files.add(await http.MultipartFile.fromPath(
-          'profile_picture',
-          profilePicturePath,
-        ));
-      }
-
-      final response = await http.Response.fromStream(await request.send());
+      final response = await http.put(
+        url,
+        headers: {'Authorization': 'Bearer ${widget.token}'},
+        body: {
+          'student_name': name,
+          'student_age': age.toString(),
+          // Include any other updated fields
+        },
+      );
 
       if (response.statusCode == 200) {
         // Student updated successfully
@@ -263,13 +315,17 @@ class _HomePageState extends State<HomePage> {
             actions: [
               TextButton(
                 child: Text('OK'),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  fetchData(); // Refresh the student list
+                },
               ),
             ],
           ),
         );
       } else {
-        print('Failed to update student. Error: ${response.statusCode}');
+        print(
+            'Failed to update student. Error: ${response.statusCode}\n${response.body}');
       }
     } catch (e) {
       print('Exception occurred while updating student: $e');
@@ -281,6 +337,7 @@ class _HomePageState extends State<HomePage> {
     String name = student['student_name'];
     int? age = student['student_age'];
     File? profilePicture;
+    bool isPictureUploaded = false;
 
     await showDialog(
       context: context,
@@ -291,74 +348,125 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: Colors.white,
           title: Text('Edit Student'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onChanged: (value) => name = value,
-                controller: TextEditingController(text: name),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Age',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) => age = int.tryParse(value) ?? 0,
-                controller: TextEditingController(text: age?.toString()),
-              ),
-              SizedBox(height: 16.0),
-              InkWell(
-                onTap: () async {
-                  final pickedImage = await ImagePicker().pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (pickedImage != null) {
-                    profilePicture = File(pickedImage.path);
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.add_a_photo,
-                        color: Colors.grey[500],
-                        size: 36.0,
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        'Upload Profile Picture',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (value) => name = value,
+                    controller: TextEditingController(text: name),
+                  ),
+                  SizedBox(height: 16.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Age',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => age = int.tryParse(value) ?? 0,
+                    controller: TextEditingController(text: age?.toString()),
+                  ),
+                  SizedBox(height: 16.0),
+                  if (isPictureUploaded)
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.image,
+                                color: Colors.grey[500],
+                                size: 36.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                profilePicture?.path ?? '',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                profilePicture = null;
+                                isPictureUploaded = false;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (!isPictureUploaded)
+                    InkWell(
+                      onTap: () async {
+                        final pickedImage = await ImagePicker().pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedImage != null) {
+                          profilePicture = File(pickedImage.path);
+                          setState(() {
+                            isPictureUploaded = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.add_a_photo,
+                              color: Colors.grey[500],
+                              size: 36.0,
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Upload Profile Picture',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+                    ),
+                ],
+              );
+            },
           ),
           actions: [
             TextButton(

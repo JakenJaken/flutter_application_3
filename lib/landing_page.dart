@@ -14,6 +14,15 @@ class LandingPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: Column(
                 children: [
+                  // Logo Widget
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
                   SizedBox(height: 32.0),
                   Text(
                     'Welcome to Ticketify',

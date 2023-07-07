@@ -3,6 +3,8 @@ D:/flutter_application_3/build/windows/runner/Debug/flutter_windows.dll
 D:/flutter_application_3/build/windows/runner/Debug/file_selector_windows_plugin.dll
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/AssetManifest.bin
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/assets/images/logo%20(2).png
+D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/assets/images/logo.png
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
 D:/flutter_application_3/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
