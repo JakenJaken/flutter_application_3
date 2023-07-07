@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:flutter_application_3/landing_page.dart';
 import 'package:flutter_application_3/login_page.dart';
@@ -50,6 +51,76 @@ class _HomePageState extends State<HomePage> {
     String baseUrl = 'http://localhost:8000';
     String relativeUrl = student['profile_picture'];
     return '$baseUrl$relativeUrl';
+  }
+
+  Future<void> _showDetailStudentDialog(
+      BuildContext context, dynamic student) async {
+    String imageUrl = getProfilePictureUrl(student);
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          backgroundColor: Colors.white,
+          title: Text('Student Details'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                  image: DecorationImage(
+                    image: NetworkImage(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Text(
+                'Name: ${student['student_name']}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                'Age: ${student['student_age']}',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Container(
+                width: 200,
+                height: 200,
+                child: QrImageView(data: 'Mantap'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _addStudent(
@@ -567,6 +638,15 @@ class _HomePageState extends State<HomePage> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: Colors.grey[600],
+                    ),
+                    onPressed: () {
+                      _showDetailStudentDialog(context, student);
+                    },
+                  ),
                   IconButton(
                     icon: Icon(
                       Icons.edit,

@@ -284,6 +284,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "octo_image",
       "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/octo_image-1.0.2",
       "packageUri": "lib/",
@@ -354,6 +360,24 @@
       "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "qr",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/qr-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "qr_flutter",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/qr_flutter-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "rxdart",
@@ -500,7 +524,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-07T01:44:25.721641Z",
+  "generated": "2023-07-07T05:22:23.853212Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
