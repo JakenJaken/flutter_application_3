@@ -214,6 +214,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  flutter_parse:
+    dependency: "direct main"
+    description:
+      name: flutter_parse
+      sha256: fec183ba78f59a7f73aafad3419880929b19cb0a1d018bc74788e55a8e68eb78
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  flutter_parse_storage_interface:
+    dependency: transitive
+    description:
+      name: flutter_parse_storage_interface
+      sha256: "01582b76d29c08a3663f4e348c44af4d51f1fc59dc63ec9abcae83862a9d7a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -236,12 +252,12 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "0.13.6"
   http_parser:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http_parser
       sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
@@ -661,6 +677,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  web_socket_channel:
+    dependency: transitive
+    description:
+      name: web_socket_channel
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   win32:
     dependency: transitive
     description:

@@ -164,6 +164,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "flutter_parse",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_parse-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_parse_storage_interface",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_parse_storage_interface-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.15",
       "packageUri": "lib/",
@@ -183,9 +195,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.1.0",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.19"
     },
     {
       "name": "http_parser",
@@ -506,6 +518,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "web_socket_channel",
+      "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "win32",
       "rootUri": "file:///C:/Users/nyoma/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.0.5",
       "packageUri": "lib/",
@@ -524,7 +542,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-07T05:22:23.853212Z",
+  "generated": "2023-07-07T08:37:01.259842Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

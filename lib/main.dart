@@ -4,11 +4,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:flutter_application_3/landing_page.dart';
 import 'package:flutter_application_3/login_page.dart';
 import 'package:flutter_application_3/register_page.dart';
+
+import 'model/StudentProvider.dart';
 
 class HomePage extends StatefulWidget {
   final String token;
@@ -364,16 +367,20 @@ class _HomePageState extends State<HomePage> {
   Future<void> _updateStudent(
       int studentId, String name, int age, String profilePicturePath) async {
     try {
-      final url = Uri.parse('http://localhost:8000/api/students/$studentId');
-      final response = await http.put(
-        url,
-        headers: {'Authorization': 'Bearer ${widget.token}'},
-        body: {
-          'student_name': name,
-          'student_age': age.toString(),
-          // Include any other updated fields
-        },
-      );
+      final url = Uri.parse('http://localhost:8000/api/students/update');
+      final request = http.MultipartRequest('POST', url);
+      request.headers['Authorization'] = 'Bearer ${widget.token}';
+      request.fields['id'] = studentId.toString();
+      request.fields['student_name'] = name;
+      request.fields['student_age'] = age.toString();
+      if (profilePicturePath.isNotEmpty) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'profile_picture',
+          profilePicturePath,
+        ));
+      }
+
+      final response = await http.Response.fromStream(await request.send());
 
       if (response.statusCode == 200) {
         // Student updated successfully
@@ -405,8 +412,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _showEditStudentDialog(
       BuildContext context, dynamic student) async {
+    int studentId = student['id'];
     String name = student['student_name'];
-    int? age = student['student_age'];
+    int age = student['student_age'];
     File? profilePicture;
     bool isPictureUploaded = false;
 
@@ -450,10 +458,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) => age = int.tryParse(value) ?? 0,
-                    controller: TextEditingController(text: age?.toString()),
+                    controller: TextEditingController(text: age.toString()),
                   ),
                   SizedBox(height: 16.0),
-                  if (isPictureUploaded)
+                  if (profilePicture != null)
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -473,7 +481,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(width: 8.0),
                               Text(
-                                profilePicture?.path ?? '',
+                                profilePicture!.path,
                                 style: TextStyle(
                                   color: Colors.grey[600],
                                   fontWeight: FontWeight.bold,
@@ -552,9 +560,9 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () {
                 _updateStudent(
-                  student['id'],
+                  studentId,
                   name,
-                  age ?? 0,
+                  age,
                   profilePicture?.path ?? '',
                 );
                 Navigator.of(context).pop();
@@ -654,6 +662,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () {
                       _showEditStudentDialog(context, student);
+                      ;
                     },
                   ),
                   IconButton(
@@ -684,7 +693,12 @@ class _HomePageState extends State<HomePage> {
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => StudentProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

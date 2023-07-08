@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import 'Student.dart';
+
 class StudentProvider with ChangeNotifier {
-  List<dynamic> students = [];
+  List<Student> students = []; // Update the variable type to List<Student>
   String token = '';
 
   Future<void> fetchData(String token) async {
@@ -17,7 +19,14 @@ class StudentProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final List<dynamic> responseData = jsonDecode(response.body);
-        students = responseData;
+        students = responseData
+            .map((data) => Student(
+                  id: data['id'],
+                  name: data['name'],
+                  age: data['age'],
+                  profilePicture: data['profilePicture'],
+                ))
+            .toList(); // Convert each dynamic data to Student object
         notifyListeners();
       } else {
         print('Failed to fetch students. Error: ${response.statusCode}');
